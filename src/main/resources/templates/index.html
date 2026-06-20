@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap 5 CSS - Stable Version -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50, #3498db) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: slideDown 0.6s ease;
+            margin-bottom: 30px;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+            animation: slideUp 0.6s ease;
+        }
+        
+        .table {
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .table thead th {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            padding: 15px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .table thead th i {
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #eef2f7;
+        }
+        
+        .table tbody tr:hover {
+            background: linear-gradient(90deg, #f8f9ff 0%, #fff 100%);
+            transform: scale(1.01);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .table tbody td {
+            padding: 12px 15px;
+            vertical-align: middle;
+        }
+        
+        .btn {
+            border-radius: 10px;
+            padding: 6px 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 3px;
+            font-size: 12px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        .search-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 5px;
+            width: 250px;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 25px;
+        }
+        
+        .id-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .serial-number {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-card {
+                padding: 15px;
+            }
+            
+            .table thead th {
+                font-size: 11px;
+                padding: 10px;
+            }
+            
+            .table tbody td {
+                font-size: 11px;
+                padding: 8px;
+            }
+            
+            .btn {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+            
+            .search-box input {
+                width: 150px;
+            }
+        }
+    </style>
+    
+    <title>Employee Management System | Home</title>
+</head>
+<body>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-users me-2"></i>Employee Management System
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addemp">
+                        <i class="fas fa-user-plus me-1"></i>Add Employee
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+
+<div class="container">
+    <div class="main-card">
+        <!-- Header Section with Title and Search -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h2 class="text-primary fw-bold mb-0">
+                    <i class="fas fa-users me-2"></i>Employee Directory
+                </h2>
+                <p class="text-muted mt-2">Manage all your employee records in one place</p>
+            </div>
+            <div class="col-md-6">
+                <div class="search-box float-md-end">
+                    <i class="fas fa-search text-primary me-2"></i>
+                    <input type="text" id="searchInput" placeholder="Search by name, email or phone..." onkeyup="searchTable()">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Card -->
+        <div class="stats-card">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Total Employees</h5>
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    <h3 class="mb-0 fw-bold" id="employeeCount">0</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Table Section - Headers will definitely show now -->
+        <div class="table-responsive">
+            <table class="table table-hover" id="employeeTable">
+                <thead>
+                    <tr style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <th style="color: white; border-radius: 10px 0 0 0;">Serial No</th>
+                        <th style="color: white;">ID</th>
+                        <th style="color: white;">Full Name</th>
+                        <th style="color: white;">Address</th>
+                        <th style="color: white;">Email Address</th>
+                        <th style="color: white;">Phone Number</th>
+                        <th style="color: white;">Salary</th>
+                        <th style="color: white; border-radius: 0 10px 0 0;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="e, iterStat : ${emp}">
+                        <td class="serial-number" th:text="${iterStat.count}">1</td>
+                        <td><span class="id-badge" th:text="${e.id}">1</span></td>
+                        <td th:text="${e.name}">John Doe</td>
+                        <td th:text="${e.address}">New York</td>
+                        <td th:text="${e.email}">john@example.com</td>
+                        <td th:text="${e.phno}">1234567890</td>
+                        <td class="fw-bold text-success" th:text="${'₹' + e.salary}">₹50000</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${e.id})}">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a class="btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${e.id})}" onclick="return confirm('⚠️ Are you sure you want to delete this employee?\n\nThis action cannot be undone!')">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Empty State Message -->
+        <div id="emptyState" class="text-center py-5" style="display: none;">
+            <i class="fas fa-user-slash fa-5x text-muted mb-3"></i>
+            <h4 class="text-muted">No employees found</h4>
+            <p class="text-muted">Click the button below to add your first employee</p>
+            <a href="/addemp" class="btn btn-primary btn-lg mt-3">
+                <i class="fas fa-user-plus me-2"></i>Add New Employee
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    // Update employee count on page load
+    $(document).ready(function() {
+        var rowCount = $('#employeeTable tbody tr').length;
+        $('#employeeCount').text(rowCount);
+        
+        if(rowCount === 0) {
+            $('#employeeTable').hide();
+            $('#emptyState').show();
+        } else {
+            $('#employeeTable').show();
+            $('#emptyState').hide();
+        }
+        
+        // Check for any session message
+        var msg = '<span th:if="${session.msg}" th:text="${session.msg}"></span>';
+        if(msg && msg.trim() !== '' && msg.trim() !== 'null' && msg.trim() !== 'undefined') {
+            showToast(msg);
+        }
+    });
+    
+    // Search functionality
+    function searchTable() {
+        let input = document.getElementById('searchInput');
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById('employeeTable');
+        let tr = table.getElementsByTagName('tr');
+        let visibleCount = 0;
+        
+        // Start from index 1 to skip header row
+        for(let i = 1; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName('td');
+            let found = false;
+            
+            // Search through all columns except the last one (actions)
+            for(let j = 0; j < td.length - 1; j++) {
+                if(td[j]) {
+                    let txtValue = td[j].textContent || td[j].innerText;
+                    if(txtValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            
+            if(found) {
+                tr[i].style.display = '';
+                visibleCount++;
+            } else {
+                tr[i].style.display = 'none';
+            }
+        }
+        
+        $('#employeeCount').text(visibleCount);
+        
+        if(visibleCount === 0) {
+            $('#employeeTable').hide();
+            $('#emptyState').show();
+        } else {
+            $('#employeeTable').show();
+            $('#emptyState').hide();
+        }
+    }
+    
+    // Toast notification function
+    function showToast(message) {
+        let toastHtml = `
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999; animation: slideInRight 0.5s ease;">
+                <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert" style="border-radius: 15px;">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Success!</strong> ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        `;
+        $('body').append(toastHtml);
+        setTimeout(() => {
+            $('.alert').alert('close');
+        }, 3000);
+    }
+    
+    // Add animation style
+    $('head').append(`
+        <style>
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        </style>
+    `);
+</script>
+
+</body>
+</html>
